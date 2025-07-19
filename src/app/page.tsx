@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
+import Link from 'next/link';
 import { useGameStore } from '@/stores/useGameStore';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -588,6 +589,16 @@ export default function Home() {
               >
                 📜 Chronicle
               </Button>
+              
+              <Link href="/donate">
+                <Button
+                  variant="outline"
+                  className="glass border-yellow-500/50 text-yellow-500 hover:glass-strong hover:border-yellow-500 hover:text-yellow-500 glow-hover transition-all duration-300 px-6 py-2.5 font-semibold"
+                  title="Support the project"
+                >
+                  ☕ Donate
+                </Button>
+              </Link>
               
               {/* Controls */}
               <div className="flex gap-2">
