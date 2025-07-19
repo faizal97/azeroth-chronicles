@@ -1,60 +1,97 @@
-# Azeroth Chronicles: A Text-Based Saga
+# Azeroth Chronicles
 
-A text-based role-playing game set in the Warcraft universe where a Large Language Model (LLM) acts as the dynamic "Dungeon Master" (DM). The game generates narrative, manages non-player characters (NPCs), and responds to player actions in real-time, creating a unique, story-driven experience.
+A text-based RPG adventure set in the Warcraft universe, powered by AI.
 
 ## Features
 
-- **Dynamic Storytelling**: AI-powered Dungeon Master using Google's Gemini API
+- **Interactive Storytelling**: Experience epic adventures across different Warcraft expansions
+- **AI-Powered Game Master**: Choose between OpenAI and Google Gemini for dynamic storytelling
+- **Character Customization**: Play as iconic Warcraft characters or create your own
+- **Rich Audio Experience**: Text-to-speech narration and background music
+- **Responsive Design**: Beautiful UI with Warcraft-inspired aesthetics
 - **Persistent Game State**: Your progress is automatically saved to localStorage
-- **Immersive UI**: Dark theme with Warcraft-inspired design
-- **Real-time Character Management**: Health, inventory, and location tracking
-- **Natural Language Actions**: Type your actions in plain English
+- **Cost Control**: Configurable token limits and context detail levels
 
 ## Tech Stack
 
-- **Framework**: Next.js 15 with TypeScript
-- **Styling**: Tailwind CSS
-- **UI Components**: shadcn/ui
+- **Framework**: Next.js 15 with React 19
+- **Styling**: Tailwind CSS with custom animations
 - **State Management**: Zustand with persistence
-- **Form Handling**: React Hook Form
-- **Validation**: Zod
-- **AI Integration**: Google Gemini API
+- **AI Integration**: OpenAI GPT and Google Gemini APIs
+- **Audio**: Web Speech API for TTS, HTML5 Audio for music
+- **Form Handling**: React Hook Form with Zod validation
+- **UI Components**: Custom Radix UI components
+- **Deployment**: Vercel
 
-## Setup Instructions
+## Getting Started
 
-### 1. Prerequisites
+### Prerequisites
 
-- Node.js 18+ installed
-- A Google Gemini API key (get one at [Google AI Studio](https://makersuite.google.com/app/apikey))
+- Node.js 18+ 
+- npm or yarn
+- API keys for OpenAI and/or Google Gemini (can be added via UI)
 
-### 2. Installation
+### Installation
 
+1. Clone the repository:
 ```bash
-# Clone the repository
 git clone <repository-url>
 cd azeroth-chronicles
+```
 
-# Install dependencies
+2. Install dependencies:
+```bash
 npm install
 ```
 
-### 3. Environment Configuration
-
-Create a `.env.local` file in the root directory:
-
-```env
-NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key_here
+3. Copy environment variables (optional):
+```bash
+cp .env.example .env.local
 ```
 
-**Important**: Replace `your_gemini_api_key_here` with your actual Gemini API key.
-
-### 4. Run the Development Server
-
+4. Run the development server:
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to start playing!
+5. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+### API Key Setup
+
+You can add your API keys in two ways:
+
+1. **Via UI** (Recommended): Use the in-game settings to add your OpenAI or Gemini API keys
+2. **Via Environment**: Add keys to `.env.local` file
+
+## Deployment to Vercel
+
+### Automatic Deployment
+
+1. **Connect to Vercel**:
+   - Go to [vercel.com](https://vercel.com)
+   - Import your GitHub repository
+   - Vercel will automatically detect Next.js settings
+
+2. **Configure Environment Variables** (Optional):
+   - In Vercel dashboard, go to Project Settings → Environment Variables
+   - Add any default API keys or configuration
+
+3. **Deploy**:
+   - Push to your main branch
+   - Vercel will automatically build and deploy
+
+### Manual Deployment
+
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+vercel
+
+# For production deployment
+vercel --prod
+```
 
 ## How to Play
 
@@ -100,38 +137,60 @@ npm start
 npm run lint
 ```
 
-### Project Structure
+## Project Structure
 
 ```
 src/
-├── app/
-│   ├── globals.css
-│   ├── layout.tsx
-│   └── page.tsx          # Main game interface
-├── components/
-│   ├── ui/               # shadcn/ui components
-│   └── CharacterSheet.tsx # Character stats display
-├── lib/
-│   ├── utils.ts
-│   └── gemini.ts         # AI API integration
-└── stores/
-    └── useGameStore.ts   # Game state management
+├── app/                 # Next.js app router
+│   ├── api/            # API routes
+│   ├── globals.css     # Global styles
+│   └── page.tsx        # Main game page
+├── components/         # React components
+│   ├── ui/            # Radix UI components
+│   ├── ScenarioSelection.tsx
+│   ├── CharacterSelection.tsx
+│   ├── CharacterSheet.tsx
+│   ├── SettingsModal.tsx
+│   ├── OnboardingModal.tsx
+│   ├── BackgroundMusic.tsx
+│   └── TokenUsageDisplay.tsx
+├── hooks/             # Custom React hooks
+│   ├── useBackgroundMusic.ts
+│   ├── useTooltipOnHover.ts
+│   └── useOnboarding.ts
+├── lib/               # Utilities and LLM providers
+│   ├── llm-providers/ # AI provider implementations
+│   ├── tokenEstimator.ts
+│   └── utils.ts
+└── stores/            # Zustand state stores
+    ├── useGameStore.ts
+    └── useSettingsStore.ts
 ```
+
+## Configuration
+
+### LLM Providers
+
+The game supports multiple AI providers:
+
+- **OpenAI**: GPT-4, GPT-4 Turbo, GPT-3.5 models
+- **Google Gemini**: Gemini Pro, Gemini Flash models
+
+### Audio Settings
+
+- **Text-to-Speech**: Configurable voice and speed
+- **Background Music**: Volume control and enable/disable
+- **Typewriter Effect**: Adjustable typing speed
+
+### Game Settings
+
+- **Context Detail**: Minimal, Standard, or Rich descriptions
+- **History Length**: How much game history to include in AI context
+- **Max Tokens**: Control response length and cost
 
 ## Security Note
 
 This implementation places the API key in the frontend code for development purposes. This is acceptable for a private, personal project but should not be used for public websites. For production use, implement a backend API to handle LLM requests securely.
-
-## Customization
-
-### Adding New Scenarios
-Edit the initial state in `src/stores/useGameStore.ts` to change the starting scenario, location, or character setup.
-
-### Modifying the AI Behavior
-Update the `MASTER_PROMPT` in `src/lib/gemini.ts` to change how the AI Dungeon Master behaves.
-
-### UI Theming
-The game uses Tailwind CSS with a dark slate theme. Modify the classes in the components to change the appearance.
 
 ## Troubleshooting
 
