@@ -1,26 +1,372 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --radius: 0.75rem;
+  --background: oklch(0.02 0.02 264);
+  --foreground: oklch(0.98 0.01 264);
+  --card: oklch(0.04 0.02 264);
+  --card-foreground: oklch(0.95 0.01 264);
+  --popover: oklch(0.04 0.02 264);
+  --popover-foreground: oklch(0.95 0.01 264);
+  --primary: oklch(0.70 0.20 50);
+  --primary-foreground: oklch(0.05 0.02 264);
+  --secondary: oklch(0.10 0.02 264);
+  --secondary-foreground: oklch(0.90 0.01 264);
+  --muted: oklch(0.08 0.02 264);
+  --muted-foreground: oklch(0.60 0.01 264);
+  --accent: oklch(0.12 0.02 264);
+  --accent-foreground: oklch(0.95 0.01 264);
+  --destructive: oklch(0.65 0.20 25);
+  --border: oklch(0.15 0.02 264);
+  --input: oklch(0.12 0.02 264);
+  --ring: oklch(0.70 0.20 50);
+  --chart-1: oklch(0.60 0.25 270);
+  --chart-2: oklch(0.70 0.20 180);
+  --chart-3: oklch(0.65 0.15 120);
+  --chart-4: oklch(0.75 0.18 80);
+  --chart-5: oklch(0.68 0.22 320);
+  --content-person: oklch(0.70 0.15 150);
+  --content-person-bg: oklch(0.70 0.15 150 / 0.1);
+  --content-person-border: oklch(0.70 0.15 150 / 0.3);
+  --content-place: oklch(0.65 0.18 240);
+  --content-place-bg: oklch(0.65 0.18 240 / 0.1);
+  --content-place-border: oklch(0.65 0.18 240 / 0.3);
+  --content-thing: oklch(0.72 0.20 45);
+  --content-thing-bg: oklch(0.72 0.20 45 / 0.1);
+  --content-thing-border: oklch(0.72 0.20 45 / 0.3);
+  --sidebar: oklch(0.06 0.02 264);
+  --sidebar-foreground: oklch(0.90 0.01 264);
+  --sidebar-primary: oklch(0.70 0.20 50);
+  --sidebar-primary-foreground: oklch(0.05 0.02 264);
+  --sidebar-accent: oklch(0.12 0.02 264);
+  --sidebar-accent-foreground: oklch(0.95 0.01 264);
+  --sidebar-border: oklch(0.15 0.02 264);
+  --sidebar-ring: oklch(0.70 0.20 50);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    background: radial-gradient(ellipse at top, oklch(0.05 0.02 264), oklch(0.02 0.02 264));
+    background-attachment: fixed;
+  }
+  
+  html {
+    scroll-behavior: smooth;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .glass {
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
+  }
+  
+  .glass-strong {
+    @apply bg-white/10 backdrop-blur-lg border border-white/20;
+  }
+  
+  .glow {
+    box-shadow: 0 0 20px oklch(var(--primary) / 0.3);
+  }
+  
+  .glow-hover {
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .glow-hover:hover {
+    box-shadow: 0 0 30px oklch(var(--primary) / 0.5);
+  }
+  
+  .text-gradient {
+    background: linear-gradient(135deg, oklch(var(--primary)), oklch(0.85 0.15 45));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .animated-bg {
+    background: linear-gradient(-45deg, 
+      oklch(0.02 0.02 264), 
+      oklch(0.04 0.02 280), 
+      oklch(0.03 0.02 250), 
+      oklch(0.02 0.02 264)
+    );
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+  }
+  
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  .floating {
+    animation: floating 6s ease-in-out infinite;
+  }
+  
+  @keyframes floating {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .slide-in {
+    animation: slideIn 0.5s ease-out;
+  }
+  
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .parallax-bg {
+    transform: translate3d(0, 0, 0);
+    animation: parallaxFloat 20s ease-in-out infinite;
+  }
+  
+  @keyframes parallaxFloat {
+    0%, 100% { 
+      transform: translate3d(0, 0, 0) scale(1.05);
+    }
+    50% { 
+      transform: translate3d(-10px, -5px, 0) scale(1.1);
+    }
+  }
+  
+  .carousel-transition {
+    transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    animation: carouselEnter 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+  
+  .bg-transition {
+    transition: all 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    animation: bgFadeIn 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+  
+  .content-fade-in {
+    animation: contentFadeIn 1.0s ease-out 0.3s forwards;
+    opacity: 0;
+  }
+  
+  @keyframes carouselEnter {
+    0% {
+      opacity: 0;
+      transform: translateX(50px) scale(0.95);
+    }
+    60% {
+      opacity: 0.8;
+      transform: translateX(-5px) scale(1.01);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+  }
+  
+  @keyframes bgFadeIn {
+    0% {
+      opacity: 0;
+      transform: scale(1.08);
+    }
+    30% {
+      opacity: 0.3;
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes contentFadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(30px) scale(0.98);
+    }
+    50% {
+      opacity: 0.5;
+      transform: translateY(10px) scale(0.99);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  .scenario-glow {
+    box-shadow: 0 0 40px oklch(var(--primary) / 0.4);
+    transition: box-shadow 0.8s ease;
+  }
+  
+  .smooth-scale {
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  
+  .smooth-scale:hover {
+    transform: scale(1.02);
+  }
+  
+  /* Content Entity Styling */
+  .content-person {
+    @apply text-[var(--content-person)] bg-[var(--content-person-bg)] border-b border-[var(--content-person-border)] px-1 py-0.5 rounded-sm cursor-help transition-all duration-300;
+  }
+  
+  .content-person:hover {
+    @apply bg-[var(--content-person-bg)] brightness-110 scale-105;
+    box-shadow: 0 2px 8px var(--content-person-border);
+  }
+  
+  .content-place {
+    @apply text-[var(--content-place)] bg-[var(--content-place-bg)] border-b border-[var(--content-place-border)] px-1 py-0.5 rounded-sm cursor-help transition-all duration-300;
+  }
+  
+  .content-place:hover {
+    @apply bg-[var(--content-place-bg)] brightness-110 scale-105;
+    box-shadow: 0 2px 8px var(--content-place-border);
+  }
+  
+  .content-thing {
+    @apply text-[var(--content-thing)] bg-[var(--content-thing-bg)] border-b border-[var(--content-thing-border)] px-1 py-0.5 rounded-sm cursor-help transition-all duration-300;
+  }
+  
+  .content-thing:hover {
+    @apply bg-[var(--content-thing-bg)] brightness-110 scale-105;
+    box-shadow: 0 2px 8px var(--content-thing-border);
+  }
+  
+  /* Dynamic Tooltip Container */
+  .tooltip-container {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.95);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    max-width: 280px;
+    width: max-content;
+    text-align: left;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    white-space: normal;
+  }
+  
+  .tooltip-container.show {
+    opacity: 1;
+  }
+  
+  .tooltip-container::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.95);
+  }
+  
+  .tooltip-loading {
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+  }
+  
+  .tooltip-error {
+    color: rgba(255, 200, 200, 0.9);
+    font-style: italic;
+  }
+  
+  @keyframes tooltipFadeIn {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) translateY(5px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+  
+  /* Responsive tooltip positioning */
+  @media (max-width: 768px) {
+    [data-tooltip]:hover::after {
+      max-width: 200px;
+      font-size: 0.8rem;
+    }
+  }
 }
