@@ -113,7 +113,7 @@ export default function SettingsPage() {
                     <SelectValue placeholder="Select a model" />
                   </SelectTrigger>
                   <SelectContent>
-                    {currentProviderInfo.models.map((model) => (
+                    {currentProviderInfo.models.map((model: string) => (
                       <SelectItem key={model} value={model}>
                         {model} {model === currentProviderInfo.defaultModel && '(Default)'}
                       </SelectItem>

@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import Link from 'next/link';
 
 export interface Scenario {
   id: string;
@@ -389,6 +390,13 @@ export function ScenarioSelection({ onSelectScenario }: ScenarioSelectionProps) 
             <p className="text-white/80 text-sm leading-relaxed text-center">
               💡 Click any scenario to begin • <kbd className="px-2 py-1 bg-white/20 rounded text-xs">Tab</kbd> to switch views
             </p>
+            <div className="text-center mt-3 pt-3 border-t border-white/10">
+              <Link href="/disclaimer">
+                <span className="text-xs text-white/60 hover:text-white/80 transition-colors underline cursor-pointer">
+                  Legal Disclaimer
+                </span>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -607,6 +615,13 @@ export function ScenarioSelection({ onSelectScenario }: ScenarioSelectionProps) 
               <p className="text-white/80 text-sm leading-relaxed">
                 💡 Use <kbd className="px-2 py-1 bg-white/20 rounded text-xs">←</kbd> <kbd className="px-2 py-1 bg-white/20 rounded text-xs">→</kbd> to navigate • <kbd className="px-2 py-1 bg-white/20 rounded text-xs">Enter</kbd> to select • <kbd className="px-2 py-1 bg-white/20 rounded text-xs">Tab</kbd> to switch views
               </p>
+              <div className="text-center mt-3 pt-3 border-t border-white/10">
+                <Link href="/disclaimer">
+                  <span className="text-xs text-white/60 hover:text-white/80 transition-colors underline cursor-pointer">
+                    Legal Disclaimer
+                  </span>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

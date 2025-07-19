@@ -874,7 +874,7 @@ export default function Home() {
                         historyLength: llm.historyLength,
                         maxTokens: llm.maxTokens,
                         gameContext: {
-                          scenario: scenario.title,
+                          scenario: selectedScenario?.title || scenario,
                           character: character,
                           narrative_history: narrative.map(entry => entry.content)
                         },
@@ -916,6 +916,14 @@ export default function Home() {
                       💡 Enter your action in natural language (e.g., &quot;look around&quot;, &quot;talk to the guard&quot;, &quot;head north&quot;)
                     </p>
                     
+                    {/* Disclaimer Link */}
+                    <div className="text-center pt-2 border-t border-border/20">
+                      <Link href="/disclaimer">
+                        <span className="text-xs text-muted-foreground/70 hover:text-muted-foreground transition-colors underline cursor-pointer">
+                          Legal Disclaimer
+                        </span>
+                      </Link>
+                    </div>
                   </div>
                 </form>
               </CardContent>

@@ -28,7 +28,6 @@ export function useOnboarding() {
 
     // Also check when settings change
     const unsubscribe = useSettingsStore.subscribe(
-      (state) => state.llm.apiKey,
       () => {
         checkOnboardingStatus();
       }

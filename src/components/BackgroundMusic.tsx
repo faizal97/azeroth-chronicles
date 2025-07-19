@@ -11,7 +11,7 @@ interface BackgroundMusicProps {
 
 export function BackgroundMusic({ src, restartKey }: BackgroundMusicProps) {
   const { ui } = useSettingsStore();
-  const lastRestartKeyRef = useRef<string>();
+  const lastRestartKeyRef = useRef<string>('');
   const [userHasInteracted, setUserHasInteracted] = useState(false);
   
   const {

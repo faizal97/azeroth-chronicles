@@ -172,7 +172,7 @@ export function OnboardingModal({ isOpen, onComplete }: OnboardingModalProps) {
                       <SelectValue placeholder="Select a model" />
                     </SelectTrigger>
                     <SelectContent className="min-w-[400px] max-h-[300px] p-4">
-                      {currentProviderInfo.models.map((model) => {
+                      {currentProviderInfo.models.map((model: string) => {
                         const modelInfo = currentProviderInfo.modelInfo?.[model];
                         const costIcon = modelInfo?.cost === 'low' ? '💰' : modelInfo?.cost === 'medium' ? '💰💰' : '💰💰💰';
                         const displayName = modelInfo?.name || model;
