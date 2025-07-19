@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
         headerSettings.apiKey,
         headerSettings.model
       );
-    } catch (error) {
+    } catch {
       return NextResponse.json(
         { error: 'LLM provider not configured or API key missing' }, 
         { status: 500 }

@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { LLMResponseSchema, type GameContext } from '@/lib/llm-providers';
+import { type GameContext } from '@/lib/llm-providers';
 import { createServerLLMManager, extractLLMSettingsFromHeaders } from '@/lib/llm-manager';
 
 interface GameResponseRequest {
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
         headerSettings.apiKey,
         headerSettings.model
       );
-    } catch (error) {
+    } catch {
       return new Response(
         JSON.stringify({ error: 'LLM provider not configured or API key missing' }),
         { status: 500, headers: { 'Content-Type': 'application/json' } }

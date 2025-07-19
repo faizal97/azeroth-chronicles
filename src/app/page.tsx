@@ -52,7 +52,6 @@ export default function Home() {
 
   // Enhancement preferences - always disabled to show plain text
   const enableEnhancement = false;
-  const setEnableEnhancement = () => {}; // No-op function
   
   // Initialize hover-based tooltip system
   useTooltipOnHover();
@@ -349,7 +348,7 @@ export default function Home() {
     setMusicRestartKey("menu-music");
     // Reset the game
     resetGame();
-  }, [resetGame, stopSpeech]);
+  }, [resetGame, stopSpeech, setMusicRestartKey]);
 
   // Typewriter effect function
   const startTypewriter = useCallback((text: string, responseType: string = 'narrative') => {

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useSettingsStore } from '@/stores/useSettingsStore';
-import { LLMProviderFactory, LLMProviderType } from '@/lib/llm-providers';
+import { LLMProviderFactory } from '@/lib/llm-providers';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';

@@ -57,7 +57,7 @@ export default function DonatePage() {
                   </p>
                   
                   <p className="text-white/80 text-base leading-relaxed">
-                    Development takes time and coffee. Lots of coffee. If you'd like to fuel future updates, 
+                    Development takes time and coffee. Lots of coffee. If you&apos;d like to fuel future updates, 
                     epic new scenarios, and gameplay improvements, consider buying me a coffee!
                   </p>
                 </div>
