@@ -124,6 +124,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
       setHasValidatedCurrentSettings(true);
       setConnectionStatus('success');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- intentionally run only on mount
   }, []);
 
   useEffect(() => {

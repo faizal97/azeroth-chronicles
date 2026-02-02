@@ -258,7 +258,10 @@ export default function Home() {
     if (!ui.ttsEnabled || !text.trim()) return;
 
     // Stop any current speech
-    stopSpeech();
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+    }
 
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
       const utterance = new SpeechSynthesisUtterance(text);
