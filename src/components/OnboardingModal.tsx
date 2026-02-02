@@ -87,14 +87,14 @@ export function OnboardingModal({ isOpen, onComplete }: OnboardingModalProps) {
 
   return (
     <div className="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-2xl glass-strong border-primary/50 shadow-2xl">
+      <Card className="w-full max-w-2xl glass-strong border-primary/50 shadow-2xl arcane-border parchment-texture">
         <CardHeader className="pb-4 text-center">
           <div className="mx-auto mb-4">
-            <div className="w-16 h-16 bg-gradient-to-r from-primary to-chart-4 rounded-full flex items-center justify-center">
+            <div className="w-16 h-16 bg-gradient-to-r from-primary to-chart-4 rounded-full flex items-center justify-center runic-glow">
               <span className="text-2xl">🧙‍♂️</span>
             </div>
           </div>
-          <CardTitle className="text-3xl text-gradient">
+          <CardTitle className="text-3xl text-gradient-arcane font-display">
             Welcome to Azeroth Chronicles
           </CardTitle>
           <p className="text-slate-300 mt-2">

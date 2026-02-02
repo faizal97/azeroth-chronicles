@@ -555,7 +555,7 @@ export default function Home() {
   const scenarioWallpaper = getScenarioWallpaper(scenario);
 
   return (
-    <div className="min-h-screen relative p-6 overflow-hidden">
+    <div className="min-h-screen relative p-6 overflow-hidden arcane-mist">
       {/* Background Music */}
       <BackgroundMusic src="/main-menu.mp3" restartKey={musicRestartKey} />
       {/* Background Image */}
@@ -643,7 +643,7 @@ export default function Home() {
               </div>
             </div>
             <div className="flex-1 slide-in">
-              <h1 className="text-5xl font-bold text-gradient mb-3 tracking-tight">
+              <h1 className="text-5xl font-display text-gradient-arcane mb-3 tracking-tight">
                 Azeroth Chronicles
               </h1>
               <p className="text-muted-foreground text-lg">A Text-Based Saga</p>
@@ -663,15 +663,15 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-10">
           {/* Main Game Area */}
           <div className="lg:col-span-2 fade-in">
-            <Card className="glass-strong border-primary/20 shadow-2xl">
+            <Card className="glass-strong border-primary/20 shadow-2xl arcane-border">
               <CardHeader className="pb-4">
-                <CardTitle className="text-2xl text-gradient flex items-center gap-3">
+                <CardTitle className="text-2xl text-gradient-arcane font-display flex items-center gap-3">
                   <span className="w-3 h-3 bg-primary rounded-full animate-pulse"></span>
                   Adventure Log
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
-                <ScrollArea className="h-[500px] w-full glass rounded-2xl p-6 border border-border/30">
+                <ScrollArea className="h-[500px] w-full glass rounded-2xl p-6 border border-border/30 parchment-texture">
                   <div className="space-y-4">
                     {/* Show only current response or processing state */}
                     {currentResponse && (
@@ -726,8 +726,8 @@ export default function Home() {
                             case 'narrative':
                             default:
                               return (
-                                <div 
-                                  className="text-card-foreground/90 leading-relaxed transition-all duration-300 px-4 py-4 fade-in cursor-pointer"
+                                <div
+                                  className="text-card-foreground/90 leading-relaxed transition-all duration-300 px-4 py-4 fade-in cursor-pointer font-body text-lg"
                                   onClick={skipTypewriter}
                                   title={isTyping ? "Click to skip typing animation" : ""}
                                 >

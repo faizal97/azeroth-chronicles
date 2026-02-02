@@ -145,10 +145,10 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <Card className="w-full max-w-2xl max-h-[90vh] overflow-y-auto glass-strong border-primary/50 shadow-2xl">
+      <Card className="w-full max-w-2xl max-h-[90vh] overflow-y-auto glass-strong border-primary/50 shadow-2xl arcane-border parchment-texture">
         <CardHeader className="pb-4">
           <div className="flex justify-between items-center">
-            <CardTitle className="text-2xl text-white flex items-center gap-3">
+            <CardTitle className="text-2xl text-gradient-arcane font-display flex items-center gap-3">
               <span className="w-3 h-3 bg-primary rounded-full animate-pulse"></span>
               Game Settings
             </CardTitle>
