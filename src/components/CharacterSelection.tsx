@@ -327,7 +327,7 @@ export function CharacterSelection({ scenario, onCharacterSelect, onBack }: Char
         }
         break;
     }
-  }, [mode, currentCharacterIndex, availableCharacters.length, selectedCharacter, isTransitioning, viewType, selectedOption, selectedClassIndex, availableClasses.length, selectedClass, customName, handleModeChange, onBack, navigateToCharacter, handleWarcraftCharacterSubmit, handleCustomCharacterSubmit]);
+  }, [mode, currentCharacterIndex, availableCharacters.length, selectedCharacter, isTransitioning, viewType, selectedOption, selectedClassIndex, availableClasses, selectedClass, customName, handleModeChange, onBack, navigateToCharacter, handleWarcraftCharacterSubmit, handleCustomCharacterSubmit]);
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);

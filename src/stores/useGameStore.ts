@@ -614,7 +614,6 @@ export const useGameStore = create<GameStore>()(
 
           const decoder = new TextDecoder();
           let streamedText = '';
-          // eslint-disable-next-line prefer-const
           let streamingResponse = {
             type: 'narrative' as 'narrative' | 'dialogue',
             content: '',

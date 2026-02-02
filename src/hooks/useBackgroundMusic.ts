@@ -126,9 +126,9 @@ export function useBackgroundMusic({
 
   // Auto-play when loaded (if autoplay is enabled) - but respect browser policies
   useEffect(() => {
-    if (isLoaded && autoplay && !isPlaying && !error) {
-      // Try to play, but don't throw error if it fails due to autoplay policy
-      play().catch(() => {
+    if (isLoaded && autoplay && !isPlaying && !error && audioRef.current) {
+      // Try to play directly on the audio element, the event listeners will update state
+      audioRef.current.play().catch(() => {
         console.log('Autoplay prevented by browser policy, waiting for user interaction');
       });
     }

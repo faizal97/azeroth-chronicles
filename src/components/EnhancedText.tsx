@@ -117,24 +117,30 @@ export function EnhancedNarrative({
   );
 }
 
-// Utility hook for managing highlighting preferences
-export function useEnhancementPreferences() {
-  const [enableEnhancement, setEnableEnhancement] = useState(true);
-  const [enhancementIntensity, setEnhancementIntensity] = useState<'low' | 'medium' | 'high'>('medium');
-
-  useEffect(() => {
-    // Load preferences from localStorage
+// Helper to load preferences from localStorage
+function loadEnhancementPrefs(): { enabled: boolean; intensity: 'low' | 'medium' | 'high' } {
+  if (typeof window === 'undefined') {
+    return { enabled: true, intensity: 'medium' };
+  }
+  try {
     const saved = localStorage.getItem('enhancement-preferences');
     if (saved) {
-      try {
-        const prefs = JSON.parse(saved);
-        setEnableEnhancement(prefs.enabled ?? true);
-        setEnhancementIntensity(prefs.intensity ?? 'medium');
-      } catch (error) {
-        console.warn('Failed to load enhancement preferences:', error);
-      }
+      const prefs = JSON.parse(saved);
+      return {
+        enabled: prefs.enabled ?? true,
+        intensity: prefs.intensity ?? 'medium'
+      };
     }
-  }, []);
+  } catch (error) {
+    console.warn('Failed to load enhancement preferences:', error);
+  }
+  return { enabled: true, intensity: 'medium' };
+}
+
+// Utility hook for managing highlighting preferences
+export function useEnhancementPreferences() {
+  const [enableEnhancement, setEnableEnhancement] = useState(() => loadEnhancementPrefs().enabled);
+  const [enhancementIntensity, setEnhancementIntensity] = useState<'low' | 'medium' | 'high'>(() => loadEnhancementPrefs().intensity);
 
   const savePreferences = (enabled: boolean, intensity: 'low' | 'medium' | 'high') => {
     setEnableEnhancement(enabled);
