@@ -67,7 +67,8 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
   };
 
   const handleTestConnection = async () => {
-    if (!llm.apiKey.trim()) {
+    const providerInfo = getCurrentProviderInfo();
+    if (providerInfo?.requiresApiKey && !llm.apiKey.trim()) {
       setConnectionStatus('error');
       return;
     }
@@ -202,129 +203,205 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
               <Label htmlFor="model" className="text-white font-semibold">
                 Model
               </Label>
-              <div className="text-xs text-slate-400 mb-2">
-                💰 = Low cost • 💰💰 = Medium cost • 💰💰💰 = High cost
-              </div>
-              <Select value={llm.model} onValueChange={setLLMModel}>
-                <SelectTrigger className="glass border-border/50 focus:border-primary/50 text-white px-4 pt-7 pb-6">
-                  <SelectValue placeholder="Select a model" />
-                </SelectTrigger>
-                <SelectContent className="min-w-[400px] max-h-[300px] p-4">
-                  {currentProviderInfo.models.map((model: string) => {
-                    const modelInfo = currentProviderInfo.modelInfo?.[model];
-                    const costIcon = modelInfo?.cost === 'low' ? '💰' : modelInfo?.cost === 'medium' ? '💰💰' : '💰💰💰';
-                    const displayName = modelInfo?.name || model;
-                    const isDefault = model === currentProviderInfo.defaultModel;
-                    
-                    return (
-                      <SelectItem key={model} value={model} className="py-4 px-4 cursor-pointer hover:bg-accent">
-                        <div className="w-full space-y-2">
-                          <div className="flex items-center justify-between w-full">
-                            <span className="font-medium text-sm">{displayName}</span>
-                            <div className="flex items-center gap-3">
-                              <span className="text-sm">{costIcon}</span>
-                              {isDefault && (
-                                <span className="text-xs text-primary bg-primary/20 px-2 py-1 rounded-md font-medium">Default</span>
+
+              {currentProviderInfo.freeTextModel ? (
+                <div className="space-y-2">
+                  <Input
+                    id="model"
+                    type="text"
+                    value={llm.model}
+                    onChange={(e) => setLLMModel(e.target.value)}
+                    placeholder={currentProviderInfo.modelPlaceholder || 'Enter model name'}
+                    className="glass border-border/50 focus:border-primary/50 text-white placeholder-slate-400"
+                  />
+                  {currentProviderInfo.modelHelpText && (
+                    <p className="text-xs text-slate-400">{currentProviderInfo.modelHelpText}</p>
+                  )}
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    <span className="text-xs text-slate-500">Suggestions:</span>
+                    {currentProviderInfo.models.slice(0, 4).map((model: string) => (
+                      <Button
+                        key={model}
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setLLMModel(model)}
+                        className={`text-xs h-6 px-2 ${
+                          llm.model === model
+                            ? 'bg-primary/20 border-primary text-primary'
+                            : 'glass border-border/50 text-slate-300 hover:border-primary/50'
+                        }`}
+                      >
+                        {model}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <div className="text-xs text-slate-400 mb-2">
+                    💰 = Low cost • 💰💰 = Medium cost • 💰💰💰 = High cost
+                  </div>
+                  <Select value={llm.model} onValueChange={setLLMModel}>
+                    <SelectTrigger className="glass border-border/50 focus:border-primary/50 text-white px-4 pt-7 pb-6">
+                      <SelectValue placeholder="Select a model" />
+                    </SelectTrigger>
+                    <SelectContent className="min-w-[400px] max-h-[300px] p-4">
+                      {currentProviderInfo.models.map((model: string) => {
+                        const modelInfo = currentProviderInfo.modelInfo?.[model];
+                        const costIcon = modelInfo?.cost === 'low' ? '💰' : modelInfo?.cost === 'medium' ? '💰💰' : '💰💰💰';
+                        const displayName = modelInfo?.name || model;
+                        const isDefault = model === currentProviderInfo.defaultModel;
+
+                        return (
+                          <SelectItem key={model} value={model} className="py-4 px-4 cursor-pointer hover:bg-accent">
+                            <div className="w-full space-y-2">
+                              <div className="flex items-center justify-between w-full">
+                                <span className="font-medium text-sm">{displayName}</span>
+                                <div className="flex items-center gap-3">
+                                  <span className="text-sm">{costIcon}</span>
+                                  {isDefault && (
+                                    <span className="text-xs text-primary bg-primary/20 px-2 py-1 rounded-md font-medium">Default</span>
+                                  )}
+                                </div>
+                              </div>
+                              {modelInfo?.description && (
+                                <div className="text-xs text-muted-foreground leading-relaxed">
+                                  {modelInfo.description}
+                                </div>
                               )}
                             </div>
-                          </div>
-                          {modelInfo?.description && (
-                            <div className="text-xs text-muted-foreground leading-relaxed">
-                              {modelInfo.description}
-                            </div>
-                          )}
-                        </div>
-                      </SelectItem>
-                    );
-                  })}
-                </SelectContent>
-              </Select>
+                          </SelectItem>
+                        );
+                      })}
+                    </SelectContent>
+                  </Select>
+                </>
+              )}
             </div>
           )}
 
-          {/* API Key */}
-          <div className="space-y-2">
-            <Label htmlFor="apiKey" className="text-white font-semibold">
-              API Key
-            </Label>
-            <div className="flex gap-2">
-              <div className="relative flex-1">
-                <Input
-                  id="apiKey"
-                  type={apiKeyVisible ? 'text' : 'password'}
-                  value={llm.apiKey}
-                  onChange={(e) => handleApiKeyChange(e.target.value)}
-                  placeholder={`Enter your ${currentProviderInfo?.name || 'API'} key`}
-                  className="glass border-border/50 focus:border-primary/50 text-white placeholder-slate-400 pr-12"
-                />
+          {/* API Key / Connection */}
+          {currentProviderInfo?.requiresApiKey ? (
+            <div className="space-y-2">
+              <Label htmlFor="apiKey" className="text-white font-semibold">
+                API Key
+              </Label>
+              <div className="flex gap-2">
+                <div className="relative flex-1">
+                  <Input
+                    id="apiKey"
+                    type={apiKeyVisible ? 'text' : 'password'}
+                    value={llm.apiKey}
+                    onChange={(e) => handleApiKeyChange(e.target.value)}
+                    placeholder={`Enter your ${currentProviderInfo?.name || 'API'} key`}
+                    className="glass border-border/50 focus:border-primary/50 text-white placeholder-slate-400 pr-12"
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-white"
+                    onClick={() => setApiKeyVisible(!apiKeyVisible)}
+                  >
+                    {apiKeyVisible ? '🙈' : '👁️'}
+                  </Button>
+                </div>
                 <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  className="absolute right-2 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-white"
-                  onClick={() => setApiKeyVisible(!apiKeyVisible)}
+                  onClick={handleTestConnection}
+                  disabled={testingConnection || !llm.apiKey.trim()}
+                  variant={connectionStatus === 'success' ? 'default' : 'outline'}
+                  className={`min-w-20 ${
+                    connectionStatus === 'success'
+                      ? 'bg-green-600 hover:bg-green-700'
+                      : connectionStatus === 'error'
+                      ? 'border-red-500 text-red-500 hover:bg-red-500/10'
+                      : 'glass border-primary/50 text-primary hover:bg-primary/10'
+                  }`}
                 >
-                  {apiKeyVisible ? '🙈' : '👁️'}
+                  {testingConnection ? '⏳' : connectionStatus === 'success' ? '✅' : connectionStatus === 'error' ? '❌' : 'Test'}
                 </Button>
               </div>
-              <Button
-                onClick={handleTestConnection}
-                disabled={testingConnection || !llm.apiKey.trim()}
-                variant={connectionStatus === 'success' ? 'default' : 'outline'}
-                className={`min-w-20 ${
-                  connectionStatus === 'success' 
-                    ? 'bg-green-600 hover:bg-green-700' 
-                    : connectionStatus === 'error'
-                    ? 'border-red-500 text-red-500 hover:bg-red-500/10'
-                    : 'glass border-primary/50 text-primary hover:bg-primary/10'
-                }`}
-              >
-                {testingConnection ? '⏳' : connectionStatus === 'success' ? '✅' : connectionStatus === 'error' ? '❌' : 'Test'}
-              </Button>
-            </div>
-            <p className="text-xs text-slate-400">
-              Stored locally and never sent to our servers
-            </p>
-            {hasSettingsChanged() && (
-              <p className="text-xs text-yellow-400 flex items-center gap-1">
-                ⚠️ Settings changed - please test connection before saving
+              <p className="text-xs text-slate-400">
+                Stored locally and never sent to our servers
               </p>
-            )}
-            
-            {/* API Key Help */}
-            <div className="bg-black/20 rounded-lg p-4 space-y-3">
-              <div className="flex items-center justify-between">
-                <h4 className="font-semibold text-slate-300 text-sm">Need help getting your API key?</h4>
-                <Button
-                  onClick={() => setShowApiManual(true)}
-                  variant="outline"
-                  size="sm"
-                  className="glass border-primary/50 text-primary hover:bg-primary/10"
-                >
-                  📚 Full Guide
-                </Button>
+              {hasSettingsChanged() && (
+                <p className="text-xs text-yellow-400 flex items-center gap-1">
+                  ⚠️ Settings changed - please test connection before saving
+                </p>
+              )}
+
+              {/* API Key Help */}
+              <div className="bg-black/20 rounded-lg p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <h4 className="font-semibold text-slate-300 text-sm">Need help getting your API key?</h4>
+                  <Button
+                    onClick={() => setShowApiManual(true)}
+                    variant="outline"
+                    size="sm"
+                    className="glass border-primary/50 text-primary hover:bg-primary/10"
+                  >
+                    📚 Full Guide
+                  </Button>
+                </div>
+                <div className="text-xs text-slate-400">
+                  {llm.provider === 'gemini' ? (
+                    <p>Quick link: <Button
+                      onClick={() => window.open('https://aistudio.google.com/app/apikey', '_blank')}
+                      variant="link"
+                      className="text-primary hover:text-primary/80 p-0 h-auto text-xs"
+                    >
+                      aistudio.google.com/app/apikey
+                    </Button></p>
+                  ) : llm.provider === 'openrouter' ? (
+                    <p>Quick link: <Button
+                      onClick={() => window.open('https://openrouter.ai/keys', '_blank')}
+                      variant="link"
+                      className="text-primary hover:text-primary/80 p-0 h-auto text-xs"
+                    >
+                      openrouter.ai/keys
+                    </Button></p>
+                  ) : null}
+                </div>
               </div>
-              <div className="text-xs text-slate-400">
-                {llm.provider === 'gemini' ? (
-                  <p>Quick link: <Button 
-                    onClick={() => window.open('https://aistudio.google.com/app/apikey', '_blank')}
-                    variant="link" 
-                    className="text-primary hover:text-primary/80 p-0 h-auto text-xs"
+            </div>
+          ) : (
+            <div className="space-y-2">
+              <Label className="text-white font-semibold">Local Server</Label>
+              <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4">
+                <p className="text-sm text-blue-300 mb-3">
+                  Ollama runs locally on your machine. Make sure the Ollama server is running at localhost:11434.
+                </p>
+                <div className="flex gap-2">
+                  <Button
+                    onClick={handleTestConnection}
+                    disabled={testingConnection}
+                    className={`${
+                      connectionStatus === 'success'
+                        ? 'bg-green-600 hover:bg-green-700'
+                        : connectionStatus === 'error'
+                        ? 'bg-red-600 hover:bg-red-700'
+                        : 'glass border-primary/50 text-primary hover:bg-primary/10'
+                    }`}
                   >
-                    aistudio.google.com/app/apikey
-                  </Button></p>
-                ) : (
-                  <p>Quick link: <Button 
-                    onClick={() => window.open('https://platform.openai.com/api-keys', '_blank')}
-                    variant="link" 
-                    className="text-primary hover:text-primary/80 p-0 h-auto text-xs"
+                    {testingConnection ? 'Testing...' : connectionStatus === 'success' ? '✅ Connected' : connectionStatus === 'error' ? '❌ Failed' : 'Test Connection'}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => window.open('https://ollama.ai', '_blank')}
+                    className="glass border-white/20 text-white hover:bg-white/10"
                   >
-                    platform.openai.com/api-keys
-                  </Button></p>
+                    Get Ollama
+                  </Button>
+                </div>
+                {connectionStatus === 'error' && (
+                  <p className="text-xs text-red-400 mt-2">
+                    Could not connect to Ollama. Make sure the server is running: `ollama serve`
+                  </p>
                 )}
               </div>
             </div>
-          </div>
+          )}
 
           {/* Temperature */}
           <div className="space-y-2">

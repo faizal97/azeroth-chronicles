@@ -63,7 +63,8 @@ export interface LLMProviderConfig {
 
 export enum LLMProviderType {
   GEMINI = 'gemini',
-  OPENAI = 'openai'
+  OPENROUTER = 'openrouter',
+  OLLAMA = 'ollama'
 }
 
 export interface ModelInfo {
@@ -79,6 +80,9 @@ export interface LLMProviderInfo {
   modelInfo: Record<string, ModelInfo>;
   defaultModel: string;
   requiresApiKey: boolean;
+  freeTextModel?: boolean;       // true = user types model name
+  modelPlaceholder?: string;     // placeholder for free-text input
+  modelHelpText?: string;        // help text below input
 }
 
 export abstract class BaseLLMProvider {
