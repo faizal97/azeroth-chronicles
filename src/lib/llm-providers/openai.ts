@@ -16,7 +16,7 @@ export class OpenAIProvider extends BaseLLMProvider {
     return {
       id: LLMProviderType.OPENAI,
       name: 'OpenAI',
-      models: ['o3', 'o4-mini', 'gpt-4.1', 'gpt-4.5', 'gpt-4o', 'gpt-4.1-mini', 'gpt-4.1-nano', 'gpt-4o-mini'],
+      models: ['o3', 'o4-mini', 'gpt-4.1', 'gpt-4.5', 'gpt-5.1-codex-max', 'gpt-5.2', 'gpt-4o', 'gpt-4.1-mini', 'gpt-4.1-nano', 'gpt-4o-mini'],
       modelInfo: {
         'o3': {
           name: 'o3',
@@ -36,6 +36,16 @@ export class OpenAIProvider extends BaseLLMProvider {
         'gpt-4.5': {
           name: 'GPT-4.5 (Preview)',
           description: 'Cutting-edge preview, advanced features',
+          cost: 'high'
+        },
+        'gpt-5.1-codex-max': {
+          name: 'GPT-5.1 Codex Max',
+          description: 'Optimized for code generation',
+          cost: 'high'
+        },
+        'gpt-5.2': {
+          name: 'GPT-5.2',
+          description: 'Latest GPT-5 series, advanced reasoning',
           cost: 'high'
         },
         'gpt-4o': {
