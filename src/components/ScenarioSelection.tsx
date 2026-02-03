@@ -287,10 +287,10 @@ export function ScenarioSelection({ onSelectScenario }: ScenarioSelectionProps) 
       <div className="relative z-10 min-h-screen p-6">
         {/* Header */}
         <div className="text-center mb-8 slide-in">
-          <h1 className="text-5xl md:text-6xl font-bold text-gradient mb-3 tracking-tight drop-shadow-2xl">
+          <h1 className="text-5xl md:text-6xl font-display text-gradient-arcane mb-3 tracking-tight drop-shadow-2xl">
             Azeroth Chronicles
           </h1>
-          <p className="text-white/90 text-xl font-semibold tracking-wide drop-shadow-lg">
+          <p className="text-white/90 text-xl font-heading tracking-wide drop-shadow-lg">
             Choose Your Adventure
           </p>
         </div>
@@ -329,7 +329,7 @@ export function ScenarioSelection({ onSelectScenario }: ScenarioSelectionProps) 
             {scenarios.map((scenario) => (
               <Card
                 key={scenario.id}
-                className="relative overflow-hidden border-primary/30 shadow-xl hover:border-primary/60 transition-all duration-300 hover:scale-105 cursor-pointer group"
+                className="relative overflow-hidden border-primary/30 shadow-xl hover:border-primary/60 transition-all duration-300 hover:scale-105 cursor-pointer group parchment-texture hover:arcane-border"
                 onClick={() => onSelectScenario(scenario)}
               >
                 {/* Background Image */}
@@ -356,10 +356,10 @@ export function ScenarioSelection({ onSelectScenario }: ScenarioSelectionProps) 
                   
                   {/* Center Content */}
                   <div className="text-center space-y-3">
-                    <h3 className="text-2xl font-bold text-white drop-shadow-lg">
+                    <h3 className="text-2xl font-display text-white drop-shadow-lg">
                       {scenario.title}
                     </h3>
-                    <p className="text-white/90 text-sm font-semibold tracking-wide uppercase drop-shadow">
+                    <p className="text-white/90 text-sm font-heading tracking-wide uppercase drop-shadow">
                       {scenario.expansion}
                     </p>
                     <p className="text-white/80 text-sm leading-relaxed overflow-hidden" style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' }}>
@@ -429,10 +429,10 @@ export function ScenarioSelection({ onSelectScenario }: ScenarioSelectionProps) 
           <div className="flex justify-between items-center w-full max-w-7xl mb-6">
             <div className="flex-1"></div>
             <div className="flex-1 text-center">
-              <h1 className="text-5xl md:text-6xl font-bold text-gradient mb-3 tracking-tight drop-shadow-2xl">
+              <h1 className="text-5xl md:text-6xl font-display text-gradient-arcane mb-3 tracking-tight drop-shadow-2xl">
                 Azeroth Chronicles
               </h1>
-              <p className="text-white/90 text-xl font-semibold tracking-wide drop-shadow-lg">
+              <p className="text-white/90 text-xl font-heading tracking-wide drop-shadow-lg">
                 Choose Your Adventure
               </p>
             </div>
@@ -484,9 +484,9 @@ export function ScenarioSelection({ onSelectScenario }: ScenarioSelectionProps) 
           
           {/* Central Scenario Display */}
           <div className="flex-1 max-w-4xl">
-            <Card 
+            <Card
               key={`card-${transitionKey}`}
-              className="relative overflow-hidden border-primary/50 shadow-2xl scenario-glow carousel-transition h-[70vh] max-h-[600px]"
+              className="relative overflow-hidden border-primary/50 shadow-2xl scenario-glow carousel-transition h-[70vh] max-h-[600px] runic-glow"
             >
               {/* Background Image */}
               <div 
@@ -521,10 +521,10 @@ export function ScenarioSelection({ onSelectScenario }: ScenarioSelectionProps) 
                   className="text-center space-y-6 content-fade-in"
                 >
                   <div>
-                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-3 drop-shadow-2xl carousel-transition">
+                    <h2 className="text-4xl md:text-5xl font-display text-gradient-arcane mb-3 drop-shadow-2xl carousel-transition">
                       {currentScenario.title}
                     </h2>
-                    <p className="text-white/90 text-xl font-semibold tracking-wide uppercase drop-shadow-lg carousel-transition">
+                    <p className="text-white/90 text-xl font-heading tracking-wide uppercase drop-shadow-lg carousel-transition">
                       {currentScenario.expansion}
                     </p>
                   </div>

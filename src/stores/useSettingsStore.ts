@@ -65,7 +65,7 @@ interface SettingsState {
 
 const DEFAULT_LLM_SETTINGS: LLMSettings = {
   provider: LLMProviderType.GEMINI,
-  model: 'gemini-1.5-flash',
+  model: 'gemini-2.5-flash',
   apiKey: '',
   temperature: 0.8,
   maxTokens: 1024,
@@ -242,6 +242,8 @@ export const useSettingsStore = create<SettingsState>()(
 
       isConfigured: () => {
         const { llm } = get();
+        const providerInfo = LLMProviderFactory.getProviderInfo(llm.provider);
+        if (!providerInfo.requiresApiKey) return true;
         return llm.apiKey.trim() !== '';
       },
     }),

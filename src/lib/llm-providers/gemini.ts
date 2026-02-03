@@ -9,32 +9,17 @@ export class GeminiProvider extends BaseLLMProvider {
     return {
       id: LLMProviderType.GEMINI,
       name: 'Google Gemini',
-      models: ['gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-1.0-pro', 'gemini-2.5-pro', 'gemini-2.5-flash', 'gemini-2.5-flash-lite-preview-06-17'],
+      models: ['gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-2.5-flash-lite-preview-06-17'],
       modelInfo: {
-        'gemini-1.5-flash': {
-          name: 'Gemini 1.5 Flash',
-          description: 'Fast responses, creative storytelling',
-          cost: 'low'
-        },
-        'gemini-1.5-pro': {
-          name: 'Gemini 1.5 Pro',
-          description: 'Deep intelligence, nuanced narratives',
-          cost: 'medium'
-        },
-        'gemini-1.0-pro': {
-          name: 'Gemini 1.0 Pro',
-          description: 'Reliable foundation model, stable performance',
+        'gemini-2.5-flash': {
+          name: 'Gemini 2.5 Flash',
+          description: 'Ultra-fast next-gen, enhanced creativity',
           cost: 'low'
         },
         'gemini-2.5-pro': {
           name: 'Gemini 2.5 Pro',
-          description: 'Next-gen intelligence, advanced reasoning',
+          description: 'Advanced reasoning, nuanced narratives',
           cost: 'high'
-        },
-        'gemini-2.5-flash': {
-          name: 'Gemini 2.5 Flash',
-          description: 'Ultra-fast next-gen, enhanced creativity',
-          cost: 'medium'
         },
         'gemini-2.5-flash-lite-preview-06-17': {
           name: 'Gemini 2.5 Flash Lite (Preview)',
@@ -42,8 +27,9 @@ export class GeminiProvider extends BaseLLMProvider {
           cost: 'low'
         }
       },
-      defaultModel: 'gemini-1.5-flash',
-      requiresApiKey: true
+      defaultModel: 'gemini-2.5-flash',
+      requiresApiKey: true,
+      freeTextModel: false
     };
   }
 
@@ -65,7 +51,7 @@ export class GeminiProvider extends BaseLLMProvider {
   }
 
   async generateResponse(gameContext: GameContext, playerAction: string): Promise<LLMResponse> {
-    const model = this.config.model || 'gemini-1.5-flash';
+    const model = this.config.model || 'gemini-2.5-flash';
     
     const payload = {
       contents: [
@@ -151,7 +137,7 @@ Respond with JSON only:`
   }
 
   async generateStoryRecap(gameContext: GameContext, prompt: string): Promise<string> {
-    const model = this.config.model || 'gemini-1.5-flash';
+    const model = this.config.model || 'gemini-2.5-flash';
 
     const payload = {
       contents: [
@@ -235,7 +221,7 @@ Write ONLY the story recap text, no JSON, no formatting markers. Write as a flow
   }
 
   async generateText(prompt: string, options?: { maxOutputTokens?: number; temperature?: number; }): Promise<string> {
-    const model = this.config.model || 'gemini-1.5-flash';
+    const model = this.config.model || 'gemini-2.5-flash';
 
     const payload = {
       contents: [

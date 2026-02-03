@@ -353,7 +353,7 @@ export function CharacterSelection({ scenario, onCharacterSelect, onBack }: Char
       <div className="relative z-10 min-h-screen flex flex-col py-8 px-4">
         {/* Header */}
         <div className="text-center mb-6 slide-in">
-          <h1 className="text-4xl md:text-5xl font-bold text-gradient mb-3 tracking-tight drop-shadow-2xl">
+          <h1 className="text-4xl md:text-5xl font-display text-gradient-arcane mb-3 tracking-tight drop-shadow-2xl">
             Character Selection
           </h1>
           <p className="text-white/90 text-lg font-semibold tracking-wide drop-shadow-lg">
@@ -390,7 +390,7 @@ export function CharacterSelection({ scenario, onCharacterSelect, onBack }: Char
                   <div className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                     <span className="text-4xl">⚔️</span>
                   </div>
-                  <h2 className="text-3xl font-bold text-white mb-4 drop-shadow-lg">Create Own Character</h2>
+                  <h2 className="text-3xl font-display text-white mb-4 drop-shadow-lg">Create Own Character</h2>
                   <p className="text-white/90 text-lg leading-relaxed mb-6">
                     Forge your own legend with a custom character suited for the {scenario.expansion} era
                   </p>
@@ -416,7 +416,7 @@ export function CharacterSelection({ scenario, onCharacterSelect, onBack }: Char
                   <div className="w-20 h-20 bg-chart-3/20 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                     <span className="text-4xl">👑</span>
                   </div>
-                  <h2 className="text-3xl font-bold text-white mb-4 drop-shadow-lg">Play as Warcraft Character</h2>
+                  <h2 className="text-3xl font-display text-white mb-4 drop-shadow-lg">Play as Warcraft Character</h2>
                   <p className="text-white/90 text-lg leading-relaxed mb-6">
                     Step into the role of legendary heroes and villains from {scenario.expansion}
                   </p>
@@ -473,7 +473,7 @@ export function CharacterSelection({ scenario, onCharacterSelect, onBack }: Char
                             }}
                           >
                             <CardContent className="p-4">
-                              <h3 className="text-white font-bold text-lg mb-2">{classData.name}</h3>
+                              <h3 className="text-white font-heading text-lg mb-2">{classData.name}</h3>
                               <p className="text-white/80 text-sm mb-3">{classData.description}</p>
                               <div className="space-y-2">
                                 <div className="flex justify-between text-sm">
@@ -527,7 +527,7 @@ export function CharacterSelection({ scenario, onCharacterSelect, onBack }: Char
                 <div className="flex justify-between items-center w-full mb-6">
                   <div className="flex-1"></div>
                   <div className="flex-1 text-center">
-                    <h2 className="text-3xl font-bold text-gradient mb-2">Choose Your Legend</h2>
+                    <h2 className="text-3xl font-display text-gradient-arcane mb-2">Choose Your Legend</h2>
                     <p className="text-white/80 text-base">{scenario.expansion} • {viewType === 'carousel' ? `${currentCharacterIndex + 1} of ${availableCharacters.length}` : `${availableCharacters.length} Heroes`}</p>
                   </div>
                   <div className="flex-1 flex justify-end">
@@ -610,7 +610,7 @@ export function CharacterSelection({ scenario, onCharacterSelect, onBack }: Char
                         className="text-center space-y-6 content-fade-in"
                       >
                         <div>
-                          <h2 className="text-4xl md:text-5xl font-bold text-white mb-3 drop-shadow-2xl carousel-transition">
+                          <h2 className="text-4xl md:text-5xl font-display text-gradient-arcane mb-3 drop-shadow-2xl carousel-transition">
                             {selectedCharacter?.name}
                           </h2>
                           <p className="text-chart-3 text-xl font-semibold tracking-wide drop-shadow-lg carousel-transition">
@@ -738,7 +738,7 @@ export function CharacterSelection({ scenario, onCharacterSelect, onBack }: Char
                           {/* Center Content */}
                           <div className="text-center space-y-3 flex-1 flex flex-col justify-center">
                             <div>
-                              <h3 className="text-2xl font-bold text-white drop-shadow-lg">
+                              <h3 className="text-2xl font-display text-white drop-shadow-lg">
                                 {character.name}
                               </h3>
                               <p className="text-chart-3 text-sm font-semibold tracking-wide drop-shadow">

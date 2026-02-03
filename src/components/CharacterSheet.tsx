@@ -10,9 +10,9 @@ export function CharacterSheet() {
 
   return (
     <div className="fade-in" style={{animationDelay: '0.3s'}}>
-      <Card className="glass-strong border-primary/20 shadow-2xl">
+      <Card className="glass-strong border-primary/20 shadow-2xl ornate-corners parchment-texture">
         <CardHeader className="pb-4">
-          <CardTitle className="text-2xl text-gradient flex items-center gap-3">
+          <CardTitle className="text-2xl text-gradient-arcane font-display flex items-center gap-3">
             <span className="w-3 h-3 bg-chart-2 rounded-full animate-pulse"></span>
             Character Sheet
           </CardTitle>
@@ -20,7 +20,7 @@ export function CharacterSheet() {
         <CardContent className="space-y-6">
           {/* Character Info */}
           <div className="glass rounded-xl p-4 space-y-3">
-            <div className="text-2xl font-bold text-card-foreground flex items-center gap-2">
+            <div className="text-2xl font-display text-card-foreground flex items-center gap-2">
               <span className="w-2 h-2 bg-primary rounded-full"></span>
               {character.name}
             </div>
@@ -42,13 +42,13 @@ export function CharacterSheet() {
           </div>
 
           {/* Health Bar */}
-          <div className="glass rounded-xl p-4 space-y-3">
+          <div className="glass rounded-xl p-4 space-y-3 runic-glow">
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-chart-4 rounded-full"></span>
-                <span className="text-primary font-semibold">Health</span>
+                <span className="text-primary font-heading">Health</span>
               </div>
-              <span className="text-card-foreground font-bold">
+              <span className="text-card-foreground font-heading">
                 {character.hp}/{character.maxHp}
               </span>
             </div>
@@ -75,7 +75,7 @@ export function CharacterSheet() {
           <div className="glass rounded-xl p-4 space-y-3">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 bg-chart-5 rounded-full"></span>
-              <span className="text-primary font-semibold">Inventory</span>
+              <span className="text-primary font-heading">Inventory</span>
             </div>
             <div className="space-y-2 max-h-40 overflow-y-auto">
               {character.inventory.length > 0 ? (
@@ -105,7 +105,7 @@ export function CharacterSheet() {
           <div className="glass rounded-xl p-4 border-t-2 border-primary/20">
             <div className="flex items-center gap-2 mb-2">
               <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
-              <span className="text-primary font-semibold">Current Scenario</span>
+              <span className="text-primary font-heading">Current Scenario</span>
             </div>
             <div className="text-card-foreground/80 font-medium">{scenario}</div>
           </div>
